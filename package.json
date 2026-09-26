@@ -132,10 +132,10 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/Liiift-Studio/vf-clamp-vscode.git"
+		"url": "https://github.com/over-punch/vf-clamp-vscode.git"
 	},
 	"bugs": {
-		"url": "https://github.com/Liiift-Studio/vf-clamp-vscode/issues"
+		"url": "https://github.com/over-punch/vf-clamp-vscode/issues"
 	},
 	"homepage": "https://www.vfclamp.com",
 	"galleryBanner": {
