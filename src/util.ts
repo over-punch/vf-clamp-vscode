@@ -3,7 +3,7 @@
 /**
  * Generate a compact name from first and last selected instance names.
  * Strips shared prefix/suffix tokens and joins the divergent middles with a dash.
- * Mirrors @liiift-studio/vf-clamp src/core/utils.ts compactName(); kept in-extension
+ * Mirrors @overpunch/vf-clamp src/core/utils.ts compactName(); kept in-extension
  * because the webview cannot import the npm package and we now compute the suggested
  * name in the host instead.
  */

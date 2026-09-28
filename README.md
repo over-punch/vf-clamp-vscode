@@ -6,12 +6,12 @@ Generate restricted variable fonts from named instance ranges — directly insid
 
 A customer who licenses "Light" and "Bold" receives a micro-VF spanning exactly that range, with the font's name table updated to reflect the purchased instances.
 
-Powered by [`@liiift-studio/vf-clamp`](https://www.vfclamp.com) and Pyodide (fonttools running in WASM).
+Powered by [`@overpunch/vf-clamp`](https://www.vfclamp.com) and Pyodide (fonttools running in WASM).
 
 ## Try it live
 
 Want to see the engine before installing? **[vfclamp.com](https://vfclamp.com)** runs the same
-`@liiift-studio/vf-clamp` core in your browser — drop in a variable font, pick instances, and
+`@overpunch/vf-clamp` core in your browser — drop in a variable font, pick instances, and
 download the restricted output. The interactive web demo is the quickest way to understand what
 this extension does inside VS Code.
 
@@ -85,7 +85,7 @@ The extension contributes no default keybindings. Bind either command via *Prefe
 
 ## How It Works
 
-The extension calls `@liiift-studio/vf-clamp`, which uses fonttools running inside Pyodide (Python WASM). The font is:
+The extension calls `@overpunch/vf-clamp`, which uses fonttools running inside Pyodide (Python WASM). The font is:
 
 1. Clamped to the axis ranges covered by the selected named instances
 2. Renamed in the name table (family name, PostScript name) to reflect the range
@@ -115,6 +115,6 @@ The extension calls `@liiift-studio/vf-clamp`, which uses fonttools running insi
 ## Links
 
 - [vfclamp.com](https://www.vfclamp.com)
-- [`@liiift-studio/vf-clamp` on npm](https://www.npmjs.com/package/@liiift-studio/vf-clamp)
+- [`@overpunch/vf-clamp` on npm](https://www.npmjs.com/package/@overpunch/vf-clamp)
 - [GitHub](https://github.com/over-punch/vf-clamp-vscode)
 - [Issue tracker](https://github.com/over-punch/vf-clamp-vscode/issues)

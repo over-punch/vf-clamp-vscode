@@ -118,7 +118,7 @@
 		"vsce-publish": "vsce publish"
 	},
 	"dependencies": {
-		"@liiift-studio/vf-clamp": "^2.1.4"
+		"@overpunch/vf-clamp": "^2.1.4"
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.6",

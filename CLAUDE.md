@@ -2,7 +2,7 @@
 
 ## Inherited Context
 
-This is a plugin submodule of `@liiift-studio/vf-clamp`. When working inside the
+This is a plugin submodule of `@overpunch/vf-clamp`. When working inside the
 vf-clamp parent repo checkout, Claude Code will also load `vf-clamp/CLAUDE.md` which
 defines the core purpose, API, name table patching approach, and shared conventions.
 
@@ -15,16 +15,16 @@ Opens a panel with an interactive UI — select a font file, choose instances, c
 
 - TypeScript (extension host, CommonJS for VS Code compatibility)
 - VS Code Extension API (vscode, WebviewPanel, commands)
-- `@liiift-studio/vf-clamp` npm package (called from extension host, NOT from webview)
+- `@overpunch/vf-clamp` npm package (called from extension host, NOT from webview)
 - Vanilla HTML/CSS/JS webview (no React, no bundler for the webview)
 
 ## Critical: Extension Host vs Webview
 
-- `@liiift-studio/vf-clamp` runs ONLY in the extension host (Node.js process)
+- `@overpunch/vf-clamp` runs ONLY in the extension host (Node.js process)
 - The webview is sandboxed — it cannot import npm packages directly
 - All font processing happens in panel.ts via message passing
 - Webview sends `{ type: 'generate', ... }` → extension host calls clampFont → responds with `{ type: 'done', files }`
-- `@liiift-studio/vf-clamp` is ESM; extension host is CommonJS — always use dynamic `import()` to load it
+- `@overpunch/vf-clamp` is ESM; extension host is CommonJS — always use dynamic `import()` to load it
 
 ## Key Files
 

@@ -27,7 +27,7 @@ const MIN_TIMEOUT_MS = 5_000
 /** Maximum number of distinct font paths we will keep in the allow-list. */
 const MAX_ALLOWED_FONT_PATHS = 32
 
-/** Shape of the @liiift-studio/vf-clamp ESM module we depend on. */
+/** Shape of the @overpunch/vf-clamp ESM module we depend on. */
 interface VfClampModule {
 	getInstances(buf: Buffer): Promise<{ axes: AxisInfo[]; instances: InstanceInfo[] }>
 	clampFont(
@@ -39,14 +39,14 @@ interface VfClampModule {
 // Hoisted memoised promise so Pyodide + vf-clamp module load only once per host lifetime.
 let vfClampPromise: Promise<VfClampModule> | null = null
 
-/** Lazily load and cache the @liiift-studio/vf-clamp ESM module. */
+/** Lazily load and cache the @overpunch/vf-clamp ESM module. */
 function loadVfClamp(): Promise<VfClampModule> {
 	if (!vfClampPromise) {
 		// Use Function('return import(...)') so esbuild/tsc does not downlevel to require().
 		vfClampPromise = (new Function(
 			'p',
 			'return import(p)',
-		)('@liiift-studio/vf-clamp') as Promise<VfClampModule>)
+		)('@overpunch/vf-clamp') as Promise<VfClampModule>)
 		.catch(err => {
 			vfClampPromise = null
 			throw err

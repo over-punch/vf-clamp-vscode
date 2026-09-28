@@ -7,7 +7,7 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.2.4] — 2026-06-22
 
 ### Fixed
-- **Bundled `@liiift-studio/vf-clamp` core upgraded 2.0.1 → 2.1.4**, picking up the
+- **Bundled `@overpunch/vf-clamp` core upgraded 2.0.1 → 2.1.4**, picking up the
   upstream font-table fixes that were previously inherited as open issues. The VSIX
   was still pinning core 2.0.1 despite the `^2.0.1` range, so these fixes were not
   actually shipping. Now resolved in generated fonts:
@@ -38,11 +38,11 @@ this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 ## [0.2.2] — 2026-06-17
 
 ### Fixed
-- **Extension failed to load fonts** with `Cannot find package '@liiift-studio/vf-clamp'`.
+- **Extension failed to load fonts** with `Cannot find package '@overpunch/vf-clamp'`.
   The dependency was hidden from esbuild (via the `new Function('return import(p)')`
   loader) so it was never bundled, while `.vscodeignore` excluded all of `node_modules/`
   — so the runtime module shipped neither bundled nor on disk. The font runtime
-  (`@liiift-studio/vf-clamp` → `@web-alchemy/fonttools` → `pyodide`) cannot be bundled
+  (`@overpunch/vf-clamp` → `@web-alchemy/fonttools` → `pyodide`) cannot be bundled
   (it loads WASM/Python assets from real files on disk), so it is now marked `external`
   in esbuild and the production `node_modules` subtree ships in the VSIX (~15 MB).
 
