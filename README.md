@@ -8,6 +8,8 @@ A customer who licenses "Light" and "Bold" receives a micro-VF spanning exactly 
 
 Powered by [`@overpunch/vf-clamp`](https://www.vfclamp.com) and Pyodide (fonttools running in WASM).
 
+> **A range includes the styles between.** Selecting Light and Bold also delivers Regular, Medium and SemiBold, because a variable range is continuous. To hand over only what was bought, select an adjacent run (Light, Regular, Medium, SemiBold, Bold) or export non-adjacent styles separately. The npm package's [`planOutputs()`](https://github.com/over-punch/vf-clamp#selling-named-styles-safely) does this grouping automatically.
+
 ## Try it live
 
 Want to see the engine before installing? **[vfclamp.com](https://vfclamp.com)** runs the same
@@ -107,6 +109,13 @@ The extension calls `@overpunch/vf-clamp`, which uses fonttools running inside P
 - Output filenames are validated; path separators, `..`, and NUL bytes are rejected.
 
 ---
+
+## The vf-clamp family
+
+- [`@overpunch/vf-clamp`](https://github.com/over-punch/vf-clamp): the core npm package and hosted REST API
+- [CLI](https://github.com/over-punch/vf-clamp-cli) · [Glyphs plugin](https://github.com/over-punch/vf-clamp-glyphs) · [RoboFont extension](https://github.com/over-punch/vf-clamp-robofont) · [VS Code extension](https://github.com/over-punch/vf-clamp-vscode) (this repo)
+- [vfclamp.com](https://vfclamp.com): the interactive demo
+- Why it matters: [*Sell the Styles, Ship the Space*](https://vfclamp.com/talk/paper), a survey of 394 foundries with file-size benchmarks and model licence language
 
 ## License
 
