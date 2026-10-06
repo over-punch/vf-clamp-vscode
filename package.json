@@ -2,7 +2,7 @@
 	"name": "vf-clamp",
 	"displayName": "vf-clamp — Variable Font Clamper",
 	"description": "Generate restricted variable fonts from named instance ranges",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"publisher": "overpunch",
 	"icon": "media/icon.png",
 	"engines": {
@@ -118,7 +118,7 @@
 		"vsce-publish": "vsce publish"
 	},
 	"dependencies": {
-		"@overpunch/vf-clamp": "^2.1.4"
+		"@overpunch/vf-clamp": "^2.3.0"
 	},
 	"devDependencies": {
 		"@types/mocha": "^10.0.6",
