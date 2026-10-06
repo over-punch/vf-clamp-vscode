@@ -37,7 +37,8 @@ export interface GenerateMsg {
 	outputDir: string
 }
 export interface CancelMsg { type: 'cancel' }
-export interface SuggestNameMsg { type: 'suggestName'; first: string; last: string }
+/** Ask for a default output name. `names` (every checked instance) gives one range per axis; first/last is the fallback. */
+export interface SuggestNameMsg { type: 'suggestName'; first: string; last: string; names?: string[] }
 
 export type IncomingMessage =
 	| LoadFontMsg
@@ -92,7 +93,8 @@ export function isIncomingMessage(value: unknown): value is IncomingMessage {
 		}
 		case 'suggestName': {
 			const m = v as Partial<SuggestNameMsg>
-			return typeof m.first === 'string' && typeof m.last === 'string'
+			const namesOk = m.names === undefined || (Array.isArray(m.names) && m.names.length <= 1000 && m.names.every((n) => typeof n === 'string'))
+			return typeof m.first === 'string' && typeof m.last === 'string' && namesOk
 		}
 		case 'generate': {
 			const m = v as Partial<GenerateMsg>

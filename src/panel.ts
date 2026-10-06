@@ -29,7 +29,9 @@ const MAX_ALLOWED_FONT_PATHS = 32
 
 /** Shape of the @overpunch/vf-clamp ESM module we depend on. */
 interface VfClampModule {
-	getInstances(buf: Buffer): Promise<{ axes: AxisInfo[]; instances: InstanceInfo[] }>
+	getInstances(buf: Buffer): Promise<{ axes: AxisInfo[]; instances: InstanceInfo[]; family?: string; labels?: Record<string, Record<string, string>> }>
+	/** One range per axis in the font's own style words, e.g. "SemiCondensed-Normal Thin-Light" (vf-clamp 2.4+). */
+	rangeName?(selected: InstanceInfo[], instances: InstanceInfo[], axes: Array<{ tag: string; default: number }>, labels?: Record<string, Record<string, string>>): string
 	clampFont(
 		buf: Buffer,
 		opts: { outputs: Array<{ name: string; instances: string[] }>; format: FontFormat },
@@ -95,6 +97,26 @@ export class VFClampPanel {
 	private _allowedFontPaths: string[] = []
 	/** Authoritative panel state, replacing scattered booleans. */
 	private _state: PanelState = { kind: 'idle' }
+	/** The loaded font's family, axes, instances and STAT labels, for default output names. */
+	private _naming: { family: string; axes: AxisInfo[]; instances: InstanceInfo[]; labels: Record<string, Record<string, string>> } | null = null
+
+	/**
+	 * Default output name: the font's family plus one range per axis in its own style words
+	 * ("Encode Sans SemiCondensed-Normal Thin-Light"), the same rule as the npm package, the web demo
+	 * and the Glyphs/RoboFont plugins. Falls back to first/last names when the selection or font data is missing.
+	 */
+	private async _suggestName(message: { first: string; last: string; names?: string[] }): Promise<string> {
+		const names = message.names ?? []
+		if (this._naming && names.length) {
+			const vfClamp = await loadVfClamp()
+			const picked = names.map((n) => this._naming!.instances.find((i) => i.name === n)).filter((i): i is InstanceInfo => !!i)
+			if (vfClamp.rangeName && picked.length === names.length) {
+				const range = vfClamp.rangeName(picked, this._naming.instances, this._naming.axes.map((a) => ({ tag: a.tag, default: a.default })), this._naming.labels)
+				return `${this._naming.family} ${range}`.trim()
+			}
+		}
+		return compactName(message.first, message.last)
+	}
 
 	/** Create or reveal the panel. If fontPath is supplied, pre-load that font. */
 	public static createOrShow(extensionUri: vscode.Uri, fontPath?: string): void {
@@ -200,7 +222,7 @@ export class VFClampPanel {
 				this._cancelSource?.cancel()
 				return
 			case 'suggestName':
-				this._postMessage({ type: 'nameSuggested', name: compactName(message.first, message.last) })
+				this._postMessage({ type: 'nameSuggested', name: await this._suggestName(message) })
 				return
 			default: {
 				// Exhaustiveness check — any new message variant must be handled above.
@@ -254,7 +276,9 @@ export class VFClampPanel {
 			this._bufferCache = { path: resolve(fontPath), mtimeMs: st.mtimeMs, buffer }
 
 			const vfClamp = await loadVfClamp()
-			const { axes, instances } = await vfClamp.getInstances(buffer)
+			const { axes, instances, family, labels } = await vfClamp.getInstances(buffer)
+			// Kept for name suggestions: the default name needs every instance's coordinates, not just two names.
+			this._naming = { family: family ?? '', axes, instances, labels: labels ?? {} }
 			this._setTitleForFont(fontPath)
 			this._state = { kind: 'fontLoaded', fontPath: resolve(fontPath) }
 			this._postMessage({

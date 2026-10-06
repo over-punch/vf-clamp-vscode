@@ -4,6 +4,12 @@ All notable changes to the **vf-clamp** VS Code extension are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.6] — 2026-10-06
+
+### Changed
+- **Bundled `@overpunch/vf-clamp` core upgraded 2.3.0 → 2.4.0**: names, style bits and STAT links now come from the same shared module as the Glyphs and RoboFont plugins. It fixes slant-based italics, a stale nameID 17 on single-style pins, colliding PostScript names for pins, and long family names.
+- **Suggested output names give one range per axis** in the font's own style words: selecting SemiCondensed and normal-width Thin–Light suggests "Encode Sans SemiCondensed-Normal Thin-Light".
+
 ## [0.2.5] — 2026-10-05
 
 ### Fixed

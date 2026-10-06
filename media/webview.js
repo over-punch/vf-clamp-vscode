@@ -65,7 +65,7 @@
 			.map(cb => cb.value)
 	}
 
-	/** Ask the host to compute a compact name from first+last checked instances. */
+	/** Ask the host for a default name from every checked instance (one range per axis). */
 	function requestNameSuggestion() {
 		if (nameManuallyEdited) return
 		const checked = getCheckedInstances()
@@ -74,6 +74,7 @@
 			type: 'suggestName',
 			first: checked[0],
 			last: checked[checked.length - 1],
+			names: checked,
 		})
 	}
 
